@@ -338,6 +338,12 @@ class AccountInternal extends PureComponent<
   }
 
   async componentDidMount() {
+    // Arriving from the sidebar's "Add transaction": open the entry row
+    // straight away rather than making the user find the header button.
+    if (this.props.location?.state?.addTransaction) {
+      this.setState({ isAdding: true });
+    }
+
     const maybeRefetch = (tables: string[]) => {
       if (
         tables.includes('transactions') ||
@@ -408,6 +414,15 @@ class AccountInternal extends PureComponent<
     // If the active account changes - close the transaction entry mode
     if (this.state.isAdding && this.props.accountId !== prevProps.accountId) {
       this.setState({ isAdding: false });
+    }
+
+    // Pressing "Add transaction" again while already on this page is a new
+    // navigation, so the entry row reopens instead of doing nothing.
+    if (
+      this.props.location?.state?.addTransaction &&
+      this.props.location.key !== prevProps.location?.key
+    ) {
+      this.setState({ isAdding: true });
     }
 
     // If the user was on a different screen and is now coming back to

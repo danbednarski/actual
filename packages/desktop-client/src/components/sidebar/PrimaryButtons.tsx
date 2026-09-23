@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
 import {
+  SvgAdd,
   SvgCheveronDown,
   SvgCheveronRight,
   SvgCog,
@@ -17,6 +18,7 @@ import { SvgCalendar3 } from '@actual-app/components/icons/v2';
 import { View } from '@actual-app/components/view';
 
 import { useIsTestEnv } from '#hooks/useIsTestEnv';
+import { useNavigate } from '#hooks/useNavigate';
 import { useSyncServerStatus } from '#hooks/useSyncServerStatus';
 
 import { Item } from './Item';
@@ -27,6 +29,14 @@ export function PrimaryButtons() {
   const [isOpen, setOpen] = useState(false);
   const onToggle = useCallback(() => setOpen(open => !open), []);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Narrow screens get this from the nav bar's middle tab; on a wide screen
+  // entering a transaction otherwise means finding an account first.
+  const onAddTransaction = useCallback(
+    () => navigate('/accounts', { state: { addTransaction: true } }),
+    [navigate],
+  );
 
   const syncServerStatus = useSyncServerStatus();
   const isTestEnv = useIsTestEnv();
@@ -48,6 +58,11 @@ export function PrimaryButtons() {
 
   return (
     <View data-testid="sidebar-primary-buttons" style={{ flexShrink: 0 }}>
+      <Item
+        title={t('Add transaction')}
+        Icon={SvgAdd}
+        onClick={onAddTransaction}
+      />
       <Item title={t('Budget')} Icon={SvgWallet} to="/budget" />
       <Item title={t('Reports')} Icon={SvgReports} to="/reports" />
       <Item title={t('Schedules')} Icon={SvgCalendar3} to="/schedules" />
