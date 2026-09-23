@@ -1,12 +1,14 @@
 :root {
   --color-pageBackground: var(--palette-navy100);
   --color-pageBackgroundModalActive: var(--palette-navy200);
+  /* Flat stone behind the file list and login: the blue gradient and its
+     contour lines competed with the content for attention. */
   --color-pageBackgroundTopLeft: var(--palette-navy100);
-  --color-pageBackgroundBottomRight: var(--palette-blue150);
-  --color-pageBackgroundLineTop: var(--palette-white);
+  --color-pageBackgroundBottomRight: var(--palette-navy150);
+  --color-pageBackgroundLineTop: var(--palette-navy100);
   --color-pageBackgroundLineMid: var(--palette-navy100);
-  --color-pageBackgroundLineBottom: var(--palette-blue150);
-  --color-pageText: #272630;
+  --color-pageBackgroundLineBottom: var(--palette-navy150);
+  --color-pageText: #1e2927;
   --color-pageTextLight: var(--palette-navy500);
   --color-pageTextSubdued: var(--palette-navy300);
   --color-pageTextDark: var(--palette-navy800);
