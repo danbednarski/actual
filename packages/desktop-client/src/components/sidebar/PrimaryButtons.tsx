@@ -8,6 +8,7 @@ import {
   SvgCheveronRight,
   SvgCog,
   SvgCreditCard,
+  SvgHome,
   SvgReports,
   SvgStoreFront,
   SvgTag,
@@ -43,6 +44,7 @@ export function PrimaryButtons() {
   const isUsingServer = syncServerStatus !== 'no-server' || isTestEnv;
 
   const isActive = [
+    '/budget',
     '/payees',
     '/rules',
     '/bank-sync',
@@ -58,12 +60,12 @@ export function PrimaryButtons() {
 
   return (
     <View data-testid="sidebar-primary-buttons" style={{ flexShrink: 0 }}>
+      <Item title={t('Home')} Icon={SvgHome} to="/home" />
       <Item
         title={t('Add transaction')}
         Icon={SvgAdd}
         onClick={onAddTransaction}
       />
-      <Item title={t('Budget')} Icon={SvgWallet} to="/budget" />
       <Item title={t('Reports')} Icon={SvgReports} to="/reports" />
       <Item title={t('Schedules')} Icon={SvgCalendar3} to="/schedules" />
       <Item
@@ -75,6 +77,12 @@ export function PrimaryButtons() {
       />
       {isOpen && (
         <>
+          <SecondaryItem
+            title={t('Categories')}
+            Icon={SvgWallet}
+            to="/budget"
+            indent={15}
+          />
           <SecondaryItem
             title={t('Payees')}
             Icon={SvgStoreFront}

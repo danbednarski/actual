@@ -28,6 +28,7 @@ import { ContextMenu } from './ContextMenu';
 import { EnableBankingCallback } from './EnableBankingCallback';
 import { FeatureErrorFallback } from './FeatureErrorFallback';
 import { GlobalKeys } from './GlobalKeys';
+import { Home } from './home/Home';
 import { MobileBankSyncAccountEditPage } from './mobile/banksync/MobileBankSyncAccountEditPage';
 import { MobileNavTabs } from './mobile/MobileNavTabs';
 import { TransactionEdit } from './mobile/transactions/TransactionEdit';
@@ -248,9 +249,18 @@ export function FinancesApp() {
                   {isNarrowWidth && <MobilePageHeaderSlot />}
 
                   <Routes>
+                    <Route path="/" element={<Navigate to="/home" replace />} />
+
                     <Route
-                      path="/"
-                      element={<Navigate to="/budget" replace />}
+                      path="/home"
+                      element={
+                        <ErrorBoundary
+                          FallbackComponent={FeatureErrorFallback}
+                          resetKeys={[location.pathname]}
+                        >
+                          <Home />
+                        </ErrorBoundary>
+                      }
                     />
 
                     <Route path="/reports/*" element={<Reports />} />
@@ -454,12 +464,13 @@ export function FinancesApp() {
                     {/* redirect all other traffic to the budget page */}
                     <Route
                       path="/*"
-                      element={<Navigate to="/budget" replace />}
+                      element={<Navigate to="/home" replace />}
                     />
                   </Routes>
                 </View>
 
                 <Routes>
+                  <Route path="/home" element={<MobileNavTabs />} />
                   <Route path="/budget" element={<MobileNavTabs />} />
                   <Route path="/accounts" element={<MobileNavTabs />} />
                   <Route path="/settings" element={<MobileNavTabs />} />

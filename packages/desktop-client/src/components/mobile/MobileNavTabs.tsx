@@ -9,6 +9,7 @@ import {
   SvgAdd,
   SvgCog,
   SvgCreditCard,
+  SvgHome,
   SvgPiggyBank,
   SvgReports,
   SvgStoreFront,
@@ -94,10 +95,10 @@ export function MobileNavTabs() {
 
   const navTabs = [
     {
-      name: t('Budget'),
-      path: '/budget',
+      name: t('Home'),
+      path: '/home',
       style: navTabStyle,
-      Icon: SvgWallet,
+      Icon: SvgHome,
     },
     {
       name: t('Transaction'),
@@ -116,6 +117,12 @@ export function MobileNavTabs() {
       path: '/reports',
       style: navTabStyle,
       Icon: SvgReports,
+    },
+    {
+      name: t('Categories'),
+      path: '/budget',
+      style: navTabStyle,
+      Icon: SvgWallet,
     },
     {
       name: t('Schedules'),
