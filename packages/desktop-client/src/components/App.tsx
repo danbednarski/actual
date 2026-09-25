@@ -180,6 +180,21 @@ export function App() {
     await dispatch(sync());
   });
 
+  // Upstream only syncs on edits and tab visibility, so a phone that went
+  // offline sits at "Server offline" until refocused. Retry when the network
+  // returns, and poll while visible (also catches the server waking up).
+  useEffect(() => {
+    const trySync = () => {
+      if (document.visibilityState === 'visible') void dispatch(sync());
+    };
+    window.addEventListener('online', trySync);
+    const id = setInterval(trySync, 30_000);
+    return () => {
+      window.removeEventListener('online', trySync);
+      clearInterval(id);
+    };
+  }, [dispatch]);
+
   useEffect(() => {
     function checkScrollbars() {
       if (hiddenScrollbars !== hasHiddenScrollbars()) {
